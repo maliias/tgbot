@@ -64,7 +64,7 @@ TEXTS = {
         "profile": (
             "👤 <b>Мой профиль</b>\n\n"
             "🆔 Telegram ID: <code>{telegram_id}</code>\n"
-            "🌐 Язык: <code>{language}</code>\n"
+            "🌐 Язык: <code>{user_language}</code>\n"
             "✅ Успешных заказов: <code>{completed_count}</code>\n"
             "💰 Общая сумма: <code>${total_spent:.2f}</code>\n"
             "📅 Первая оплата: <code>{first_payment}</code>\n"
@@ -254,7 +254,7 @@ TEXTS = {
         "profile": (
             "👤 <b>My profile</b>\n\n"
             "🆔 Telegram ID: <code>{telegram_id}</code>\n"
-            "🌐 Language: <code>{language}</code>\n"
+            "🌐 Language: <code>{user_language}</code>\n"
             "✅ Completed orders: <code>{completed_count}</code>\n"
             "💰 Total spent: <code>${total_spent:.2f}</code>\n"
             "📅 First payment: <code>{first_payment}</code>\n"

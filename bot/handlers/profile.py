@@ -27,7 +27,7 @@ async def show_profile(callback: CallbackQuery, user: User, order_repo: OrderRep
         user.language,
         "profile",
         telegram_id=user.telegram_id,
-        language=user.language.upper(),
+        user_language=user.language.upper(),
         completed_count=stats["completed_count"],
         total_spent=stats["total_spent"],
         first_payment=first_payment,
