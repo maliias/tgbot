@@ -11,20 +11,28 @@ CREATE TABLE IF NOT EXISTS users (
 );
 
 -- Orders table
-CREATE TYPE order_status AS ENUM (
-    'PENDING',           -- Ожидает оплаты
-    'PAID_USER',         -- Оплачен пользователем (требует проверки)
-    'COMPLETED',         -- Успешно выполнен
-    'REJECTED'           -- Отменен/Не успешен
-);
+DO $$ BEGIN
+    CREATE TYPE order_status AS ENUM (
+        'PENDING',           -- Ожидает оплаты
+        'PAID_USER',         -- Оплачен пользователем (требует проверки)
+        'COMPLETED',         -- Успешно выполнен
+        'REJECTED'           -- Отменен/Не успешен
+    );
+EXCEPTION
+    WHEN duplicate_object THEN null;
+END $$;
 
-CREATE TYPE payment_method AS ENUM (
-    'USDT_TRC20',
-    'USDT_BEP20',
-    'BYBIT_UID',
-    'CARD',
-    'LOLZ'
-);
+DO $$ BEGIN
+    CREATE TYPE payment_method AS ENUM (
+        'USDT_TRC20',
+        'USDT_BEP20',
+        'BYBIT_UID',
+        'CARD',
+        'LOLZ'
+    );
+EXCEPTION
+    WHEN duplicate_object THEN null;
+END $$;
 
 CREATE TABLE IF NOT EXISTS orders (
     id BIGSERIAL PRIMARY KEY,
@@ -82,11 +90,14 @@ END;
 $$ language 'plpgsql';
 
 -- Triggers for updated_at
+DROP TRIGGER IF EXISTS update_users_updated_at ON users;
 CREATE TRIGGER update_users_updated_at BEFORE UPDATE ON users
     FOR EACH ROW EXECUTE FUNCTION update_updated_at_column();
 
+DROP TRIGGER IF EXISTS update_orders_updated_at ON orders;
 CREATE TRIGGER update_orders_updated_at BEFORE UPDATE ON orders
     FOR EACH ROW EXECUTE FUNCTION update_updated_at_column();
 
+DROP TRIGGER IF EXISTS update_settings_updated_at ON settings;
 CREATE TRIGGER update_settings_updated_at BEFORE UPDATE ON settings
     FOR EACH ROW EXECUTE FUNCTION update_updated_at_column();
