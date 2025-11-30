@@ -1,6 +1,7 @@
 """User profile and orders handlers."""
 from aiogram import Router, F
 from aiogram.types import CallbackQuery
+from aiogram.fsm.context import FSMContext
 
 from bot.models.user import User
 from bot.models.order import OrderRepository
@@ -11,8 +12,10 @@ router = Router()
 
 
 @router.callback_query(F.data == "profile")
-async def show_profile(callback: CallbackQuery, user: User, order_repo: OrderRepository):
+async def show_profile(callback: CallbackQuery, user: User, order_repo: OrderRepository, state: FSMContext):
     """Show user profile."""
+    await state.clear()
+
     # Get user stats
     stats = await order_repo.get_user_stats(user.telegram_id)
 

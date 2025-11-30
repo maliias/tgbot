@@ -163,7 +163,7 @@ def get_orders_list(language: str, orders: list, page: int = 0) -> InlineKeyboar
     builder.row(
         InlineKeyboardButton(
             text=get_text(language, "btn_back"),
-            callback_data="profile"
+            callback_data="main_menu"
         )
     )
 
